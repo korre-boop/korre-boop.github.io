@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?white-roses') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Overlay to soften background */
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        h1 {
+            position: relative;
+            z-index: 2;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Love letter container */
+        #letter {
+            display: none;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Button styling */
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #b68d40;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background: #a07830;
+            box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7);
+        }
+
+        /* Mute button */
+        #muteButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 100, 150, 0.5);
+            font-size: 24px;
+            animation: floatUp 5s infinite ease-in-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <h1>To my baby, the one who makes me feel truly special, the one I’d choose in every reality and fantasy—</h1>
+    
+    <button onclick="revealLetter()">Click to Reveal</button>
+
+    <div id="letter">
+        <p id="content"></p>
+    </div>
+
+    <button id="muteButton" onclick="toggleMusic()">Mute Music</button>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://example.com/bawat-daan.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+<!-- Floating hearts -->
+<script>
+    function createHearts() {
+        for (let i = 0; i < 15; i++) {
+            let heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.className = "heart";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+    }
+    setInterval(createHearts, 1000);
+
+    let letterText = `Happy 1st Monthsary!\n\n
+    I just want you to know how much you mean to me. You make me feel valued, seen, and heard, and I deeply appreciate that. Every little thing you do, no matter how big or small, holds so much significance for me. I’m endlessly grateful for you.\n\n
+    Thank you for always checking up on me, especially when I need it most. Even though I never want to be a burden, I appreciate your kindness and care more than words can express. Thank you for being someone I can talk to, for listening, for understanding, and for simply being there. Your time and effort, even on your busiest days, never go unnoticed, and I cherish every moment we share.\n\n
+    Our journey won’t always be smooth, but no matter what challenges we face, I will always choose you. Our relationship may not be perfect, but I promise to give my best for you. Even when things get tough and we struggle to understand each other, my choice will always be you—over and over again.\n\n
+    I love you in your brightest moments and even more in your darkest ones. As long as I’m here, you will never have to face anything alone. I'll love you always, in all ways.\n\n
+    Above all, thank you for accepting me, for choosing me, and for loving me every single day.\n\n
+    I love you, my baby.`;
+    
+    function revealLetter() {
+    let letterDiv = document.getElementById("letter");
+    let content = document.getElementById("content");
+    
+    letterDiv.style.display = "block";
+    setTimeout(() => {
+    letterDiv.style.opacity = "1";
+    letterDiv.style.transform = "translateY(0)";
+    typeWriter(content, letterText, 50);
+    }, 200);
+    }
+    
+    function typeWriter(element, text, speed) {
+    let i = 0;
+    function typing() {
+    if (i < text.length) {
+    element.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, speed);
+    }
+    }
+    typing();
+    }
+    
+    function toggleMusic() {
+    let bgMusic = document.getElementById("bgMusic");
+    if (bgMusic.paused) {
+    bgMusic.play();
+    } else {
+    bgMusic.pause();
+    }
+    }
+    </script>
+    
+</body>
+</html>
